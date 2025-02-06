@@ -1,0 +1,51 @@
+type BlockDataSource @entity {
+    id: ID!
+    number: BigInt!
+    blockTime: BigInt
+    gasUsed: BigInt
+    size: BigInt
+}
+
+type Block @entity(timeseries: true) {
+    id: Int8!
+    timestamp: Timestamp!
+
+    hash: Bytes!
+    number: BigInt!
+    blockTime: BigInt!
+    gasUsed: BigInt!
+    size: BigInt!
+}
+
+type Stats @aggregation(intervals: ["hour", "day"], source: "Block") {
+    id: Int8!
+    timestamp: Timestamp!
+
+    count: Int! @aggregate(fn: "count")
+
+    minBlockTime: BigInt! @aggregate(fn: "min", arg: "blockTime")
+    maxBlockTime: BigInt! @aggregate(fn: "max", arg: "blockTime")
+    sumBlockTime: BigInt! @aggregate(fn: "sum", arg: "blockTime")
+    firstBlockTime: BigInt! @aggregate(fn: "first", arg: "blockTime")
+    lastBlockTime: BigInt! @aggregate(fn: "last", arg: "blockTime")
+    allTimeMinBlockTime: BigInt! @aggregate(fn: "min", arg: "blockTime", cumulative: true)
+    allTimeMaxBlockTime: BigInt! @aggregate(fn: "max", arg: "blockTime", cumulative: true)
+
+    minGasUsed: BigInt! @aggregate(fn: "min", arg: "gasUsed")
+    maxGasUsed: BigInt! @aggregate(fn: "max", arg: "gasUsed")
+    sumGasUsed: BigInt! @aggregate(fn: "sum", arg: "gasUsed")
+    firstGasUsed: BigInt! @aggregate(fn: "first", arg: "gasUsed")
+    lastGasUsed: BigInt! @aggregate(fn: "last", arg: "gasUsed")
+    totalGasUsed: BigInt! @aggregate(fn: "sum", arg: "gasUsed", cumulative: true)
+    allTimeMinGasUsed: BigInt! @aggregate(fn: "min", arg: "gasUsed", cumulative: true)
+    allTimeMaxGasUsed: BigInt! @aggregate(fn: "max", arg: "gasUsed", cumulative: true)
+
+    minSize: BigInt! @aggregate(fn: "min", arg: "size")
+    maxSize: BigInt! @aggregate(fn: "max", arg: "size")
+    sumSize: BigInt! @aggregate(fn: "sum", arg: "size")
+    firstSize: BigInt! @aggregate(fn: "first", arg: "size")
+    lastSize: BigInt! @aggregate(fn: "last", arg: "size")
+    totalSize: BigInt! @aggregate(fn: "sum", arg: "size", cumulative: true)
+    allTimeMinSize: BigInt! @aggregate(fn: "min", arg: "size", cumulative: true)
+    allTimeMaxSize: BigInt! @aggregate(fn: "max", arg: "size", cumulative: true)
+}

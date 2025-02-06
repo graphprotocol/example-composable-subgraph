@@ -1,0 +1,53 @@
+specVersion: 1.3.0
+description: A subgraph that collects statistics about blocks.
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: subgraph
+    name: block-time-subgraph
+    network: mainnet
+    source:
+      address: "QmcKB3XQyfNM2Uzzeyd9UmGqsw83Ysh8t9LGQD94DdfSS7"
+      startBlock: 10000000
+    mapping:
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/mapping.ts
+      entities:
+        - BlockData
+      abis: []
+      handlers:
+        - entity: BlockTime
+          handler: handleBlockTime
+  - kind: subgraph
+    name: block-cost-subgraph
+    network: mainnet
+    source:
+      address: "QmQ2kJphSSsSUXqnSAKLvxmhPGNxjVtrTsLTUPeCszns17"
+      startBlock: 10000000
+    mapping:
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/mapping.ts
+      entities:
+        - BlockData
+      abis: []
+      handlers:
+        - entity: BlockCost
+          handler: handleBlockCost
+  - kind: subgraph
+    name: block-size-subgraph
+    network: mainnet
+    source:
+      address: "QmQRWu5c2EqssTHjGJyD9cUKRrArX6TGtVUWdYajdeC4My"
+      startBlock: 10000000
+    mapping:
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/mapping.ts
+      entities:
+        - BlockData
+      abis: []
+      handlers:
+        - entity: BlockSize
+          handler: handleBlockSize
