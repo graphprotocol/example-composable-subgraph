@@ -5,6 +5,7 @@ export function handleBlock(block: ethereum.Block): void {
   let blockTime = new BlockTime(block.hash.toHex());
 
   blockTime.parentId = block.parentHash.toHex();
+  blockTime.number = block.number;
   blockTime.timestamp = block.timestamp;
 
   let parentBlockTime = BlockTime.load(block.parentHash.toHex());
