@@ -9,14 +9,15 @@ export function handleBlockTime(trigger: EntityTrigger<BlockTime>): void {
     return;
   }
 
-  let blockData = BlockDataSource.load(trigger.data.id);
+  let blockTime = trigger.data;
+  let blockData = BlockDataSource.load(blockTime.id);
 
   if (!blockData) {
-    blockData = new BlockDataSource(trigger.data.id);
-    blockData.number = trigger.data.number;
+    blockData = new BlockDataSource(blockTime.id);
+    blockData.number = blockTime.number;
   }
 
-  blockData.blockTime = trigger.data.blockTime;
+  blockData.blockTime = blockTime.blockTime;
   blockData.save();
 
   maybeCreateBlock(blockData);
@@ -27,14 +28,15 @@ export function handleBlockCost(trigger: EntityTrigger<BlockCost>): void {
     return;
   }
 
-  let blockData = BlockDataSource.load(trigger.data.id);
+  let blockCost = trigger.data;
+  let blockData = BlockDataSource.load(blockCost.id);
 
   if (!blockData) {
-    blockData = new BlockDataSource(trigger.data.id);
-    blockData.number = trigger.data.number;
+    blockData = new BlockDataSource(blockCost.id);
+    blockData.number = blockCost.number;
   }
 
-  blockData.gasUsed = trigger.data.gasUsed;
+  blockData.gasUsed = blockCost.gasUsed;
   blockData.save();
 
   maybeCreateBlock(blockData);
@@ -45,14 +47,15 @@ export function handleBlockSize(trigger: EntityTrigger<BlockSize>): void {
     return;
   }
 
-  let blockData = BlockDataSource.load(trigger.data.id);
+  let blockSize = trigger.data;
+  let blockData = BlockDataSource.load(blockSize.id);
 
   if (!blockData) {
-    blockData = new BlockDataSource(trigger.data.id);
-    blockData.number = trigger.data.number;
+    blockData = new BlockDataSource(blockSize.id);
+    blockData.number = blockSize.number;
   }
 
-  blockData.size = trigger.data.size;
+  blockData.size = blockSize.size;
   blockData.save();
 
   maybeCreateBlock(blockData);
