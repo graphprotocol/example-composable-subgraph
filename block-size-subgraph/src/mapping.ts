@@ -1,4 +1,4 @@
-import { ethereum , BigInt} from "@graphprotocol/graph-ts";
+import { BigInt, ethereum } from "@graphprotocol/graph-ts";
 import { BlockSize } from "../generated/schema";
 
 export function handleBlock(block: ethereum.Block): void {

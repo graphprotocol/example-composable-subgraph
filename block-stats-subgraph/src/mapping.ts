@@ -1,4 +1,4 @@
-import {Bytes, EntityOp, EntityTrigger, store} from "@graphprotocol/graph-ts";
+import {BigInt, Bytes, EntityOp, EntityTrigger, store} from "@graphprotocol/graph-ts";
 import {Block, BlockDataSource} from "../generated/schema";
 import {BlockTime} from "../generated/subgraph-QmcKB3XQyfNM2Uzzeyd9UmGqsw83Ysh8t9LGQD94DdfSS7";
 import {BlockCost} from "../generated/subgraph-QmQ2kJphSSsSUXqnSAKLvxmhPGNxjVtrTsLTUPeCszns17";
@@ -10,12 +10,7 @@ export function handleBlockTime(trigger: EntityTrigger<BlockTime>): void {
   }
 
   let blockTime = trigger.data;
-  let blockData = BlockDataSource.load(blockTime.id);
-
-  if (!blockData) {
-    blockData = new BlockDataSource(blockTime.id);
-    blockData.number = blockTime.number;
-  }
+  let blockData = loadOrCreateBlockData(blockTime.id, blockTime.number);
 
   blockData.blockTime = blockTime.blockTime;
   blockData.save();
@@ -29,12 +24,7 @@ export function handleBlockCost(trigger: EntityTrigger<BlockCost>): void {
   }
 
   let blockCost = trigger.data;
-  let blockData = BlockDataSource.load(blockCost.id);
-
-  if (!blockData) {
-    blockData = new BlockDataSource(blockCost.id);
-    blockData.number = blockCost.number;
-  }
+  let blockData = loadOrCreateBlockData(blockCost.id, blockCost.number);
 
   blockData.gasUsed = blockCost.gasUsed;
   blockData.save();
@@ -48,17 +38,23 @@ export function handleBlockSize(trigger: EntityTrigger<BlockSize>): void {
   }
 
   let blockSize = trigger.data;
-  let blockData = BlockDataSource.load(blockSize.id);
-
-  if (!blockData) {
-    blockData = new BlockDataSource(blockSize.id);
-    blockData.number = blockSize.number;
-  }
+  let blockData = loadOrCreateBlockData(blockSize.id, blockSize.number);
 
   blockData.size = blockSize.size;
   blockData.save();
 
   maybeCreateBlock(blockData);
+}
+
+function loadOrCreateBlockData(id: string, number: BigInt): BlockDataSource {
+  let blockData = BlockDataSource.load(id);
+
+  if (!blockData) {
+    blockData = new BlockDataSource(id);
+    blockData.number = number;
+  }
+
+  return blockData;
 }
 
 function maybeCreateBlock(blockData: BlockDataSource): void {
@@ -73,7 +69,6 @@ function maybeCreateBlock(blockData: BlockDataSource): void {
   block.blockTime = blockData.blockTime!;
   block.gasUsed = blockData.gasUsed!;
   block.size = blockData.size!;
-
   block.save();
 
   store.remove("BlockDataSource", blockData.id);
