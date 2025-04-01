@@ -1,15 +1,10 @@
-import {BigInt, Bytes, EntityOp, EntityTrigger, store} from "@graphprotocol/graph-ts";
+import {BigInt, Bytes, EntityOp, store} from "@graphprotocol/graph-ts";
 import {Block, BlockDataSource} from "../generated/schema";
 import {BlockTime} from "../generated/subgraph-QmcKB3XQyfNM2Uzzeyd9UmGqsw83Ysh8t9LGQD94DdfSS7";
 import {BlockCost} from "../generated/subgraph-QmQ2kJphSSsSUXqnSAKLvxmhPGNxjVtrTsLTUPeCszns17";
 import {BlockSize} from "../generated/subgraph-QmQRWu5c2EqssTHjGJyD9cUKRrArX6TGtVUWdYajdeC4My";
 
-export function handleBlockTime(trigger: EntityTrigger<BlockTime>): void {
-  if (trigger.operation !== EntityOp.Create) {
-    return;
-  }
-
-  let blockTime = trigger.data;
+export function handleBlockTime(blockTime: BlockTime): void {
   let blockData = loadOrCreateBlockData(blockTime.id, blockTime.number);
 
   blockData.blockTime = blockTime.blockTime;
@@ -18,12 +13,7 @@ export function handleBlockTime(trigger: EntityTrigger<BlockTime>): void {
   maybeCreateBlock(blockData);
 }
 
-export function handleBlockCost(trigger: EntityTrigger<BlockCost>): void {
-  if (trigger.operation !== EntityOp.Create) {
-    return;
-  }
-
-  let blockCost = trigger.data;
+export function handleBlockCost(blockCost: BlockCost): void {
   let blockData = loadOrCreateBlockData(blockCost.id, blockCost.number);
 
   blockData.gasUsed = blockCost.gasUsed;
@@ -32,12 +22,7 @@ export function handleBlockCost(trigger: EntityTrigger<BlockCost>): void {
   maybeCreateBlock(blockData);
 }
 
-export function handleBlockSize(trigger: EntityTrigger<BlockSize>): void {
-  if (trigger.operation !== EntityOp.Create) {
-    return;
-  }
-
-  let blockSize = trigger.data;
+export function handleBlockSize(blockSize: BlockSize): void {
   let blockData = loadOrCreateBlockData(blockSize.id, blockSize.number);
 
   blockData.size = blockSize.size;
