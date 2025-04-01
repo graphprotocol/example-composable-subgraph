@@ -1,8 +1,8 @@
-import {BigInt, Bytes, EntityOp, store} from "@graphprotocol/graph-ts";
-import {Block, BlockDataSource} from "../generated/schema";
-import {BlockTime} from "../generated/subgraph-QmcKB3XQyfNM2Uzzeyd9UmGqsw83Ysh8t9LGQD94DdfSS7";
-import {BlockCost} from "../generated/subgraph-QmQ2kJphSSsSUXqnSAKLvxmhPGNxjVtrTsLTUPeCszns17";
-import {BlockSize} from "../generated/subgraph-QmQRWu5c2EqssTHjGJyD9cUKRrArX6TGtVUWdYajdeC4My";
+import { BigInt, Bytes, store } from "@graphprotocol/graph-ts";
+import { Block, BlockDataSource } from "../generated/schema";
+import { BlockTime } from "../generated/subgraph-QmVZTjnDRD7LNpg7gAPQCJEcSUX3LzvdRkER852Gqhmr7w";
+import { BlockCost } from "../generated/subgraph-QmTnon3zvaUiufvGNCVDcScYqM5r9QH7DpvTy3V4Zobvfi";
+import { BlockSize } from "../generated/subgraph-QmeMoJaBgt82j1ByNM8XBhfc8wM8z7dbzETsYXwt9HdMUA";
 
 export function handleBlockTime(blockTime: BlockTime): void {
   let blockData = loadOrCreateBlockData(blockTime.id, blockTime.number);
@@ -43,11 +43,15 @@ function loadOrCreateBlockData(id: string, number: BigInt): BlockDataSource {
 }
 
 function maybeCreateBlock(blockData: BlockDataSource): void {
-  if (blockData.blockTime === null || blockData.gasUsed === null || blockData.size === null) {
+  if (
+    blockData.blockTime === null ||
+    blockData.gasUsed === null ||
+    blockData.size === null
+  ) {
     return;
   }
 
-  let block = new Block('auto');
+  let block = new Block("auto");
 
   block.hash = Bytes.fromHexString(blockData.id);
   block.number = blockData.number;

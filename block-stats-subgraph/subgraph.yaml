@@ -18,7 +18,7 @@ dataSources:
       #
       # Any change to the source subgraph will generate a new deployment ID,
       # and the address should be updated to reflect the changes.
-      address: "QmcKB3XQyfNM2Uzzeyd9UmGqsw83Ysh8t9LGQD94DdfSS7"
+      address: "QmVZTjnDRD7LNpg7gAPQCJEcSUX3LzvdRkER852Gqhmr7w"
 
       # The same start block as in the source subgraph.
       startBlock: 10000000
@@ -49,7 +49,7 @@ dataSources:
       #
       # Any change to the source subgraph will generate a new deployment ID,
       # and the address should be updated to reflect the changes.
-      address: "QmQ2kJphSSsSUXqnSAKLvxmhPGNxjVtrTsLTUPeCszns17"
+      address: "QmTnon3zvaUiufvGNCVDcScYqM5r9QH7DpvTy3V4Zobvfi"
 
       # The same start block as in the source subgraph.
       startBlock: 10000000
@@ -80,7 +80,7 @@ dataSources:
       #
       # Any change to the source subgraph will generate a new deployment ID,
       # and the address should be updated to reflect the changes.
-      address: "QmQRWu5c2EqssTHjGJyD9cUKRrArX6TGtVUWdYajdeC4My"
+      address: "QmeMoJaBgt82j1ByNM8XBhfc8wM8z7dbzETsYXwt9HdMUA"
 
       # The same start block as in the source subgraph.
       startBlock: 10000000
