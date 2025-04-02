@@ -1,8 +1,8 @@
-import { BigInt, Bytes, store } from "@graphprotocol/graph-ts";
+import { BigInt, Bytes, EntityOp, store } from "@graphprotocol/graph-ts";
 import { Block, BlockDataSource } from "../generated/schema";
-import { BlockTime } from "../generated/subgraph-QmVZTjnDRD7LNpg7gAPQCJEcSUX3LzvdRkER852Gqhmr7w";
-import { BlockCost } from "../generated/subgraph-QmTnon3zvaUiufvGNCVDcScYqM5r9QH7DpvTy3V4Zobvfi";
-import { BlockSize } from "../generated/subgraph-QmeMoJaBgt82j1ByNM8XBhfc8wM8z7dbzETsYXwt9HdMUA";
+import { BlockTime } from "../generated/subgraph-QmYDoyoDpMKu7kqpNw3Fb7293u55MP89vgNFMT9nMdX2iN";
+import { BlockCost } from "../generated/subgraph-Qmb4GGhWYVxj1146y9LCPaHtL9oD8gfvdksBnVZ4UoTmGd";
+import { BlockSize } from "../generated/subgraph-QmVg4x7wFYAuUaeCrN9FdY4NUk7QpcvpgvBiqyNvZr3xjN";
 
 export function handleBlockTime(blockTime: BlockTime): void {
   let blockData = loadOrCreateBlockData(blockTime.id, blockTime.number);
